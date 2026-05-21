@@ -220,7 +220,8 @@ footer p{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-trans
   #hero{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;}
   .hero-log-id{padding:5rem 1.2rem 0;}
   .hero-coords{grid-column:1;grid-row:2;padding:0.5rem 1.2rem 0;text-align:left;}
-  .hero-photo{grid-column:1;grid-row:3;height:280px;min-height:unset;border-left:none;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);}
+  .hero-photo{grid-column:1;grid-row:3;height:380px;min-height:unset;border-left:none;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);}
+  .hero-photo img{object-position:center 15%;}
   .hero-main{grid-column:1;grid-row:4;padding:2rem 1.2rem 3rem;}
   .hero-role{flex-direction:column;gap:.8rem;}
   .log-header{padding:.9rem 1.2rem;}
@@ -433,7 +434,11 @@ const mob=document.getElementById('mob');
 ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');});
 mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open');}));
 
-// Reveal
+// Fix black screen on back button
+window.addEventListener('pageshow', function(e){
+  document.body.style.opacity='1';
+});
+
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
 },{threshold:0.06});

@@ -165,23 +165,23 @@ footer p{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-trans
 <body>
 
 <nav>
-  <a href="portfolio-1.html" class="nav-logo">MB</a>
+  <a href="index.html" class="nav-logo">MB</a>
   <ul class="nav-links">
-    <li><a href="portfolio-1.html#work">Work</a></li>
-    <li><a href="portfolio-1.html#about-anchor">About</a></li>
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="index.html#about-anchor">About</a></li>
     <li><a href="fieldnotes.html">Field Notes</a></li>
     <li><a href="journal.html">Journal</a></li>
-    <li><a href="portfolio-1.html#contact">Contact</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
   </ul>
-  <a href="portfolio-1.html" class="nav-back">- Back</a>
+  <a href="index.html" class="nav-back">- Back</a>
   <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
 </nav>
 <div class="mmenu" id="mob">
-  <a href="portfolio-1.html#work">Work</a>
-  <a href="portfolio-1.html#about-anchor">About</a>
+  <a href="index.html#work">Work</a>
+  <a href="index.html#about-anchor">About</a>
   <a href="fieldnotes.html">Field Notes</a>
   <a href="journal.html">Journal</a>
-  <a href="portfolio-1.html#contact">Contact</a>
+  <a href="index.html#contact">Contact</a>
 </div>
 
 <!-- HERO -->
@@ -401,7 +401,7 @@ footer p{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-trans
 </div>
 
 <div class="cs-back-wrap">
-  <a href="portfolio-1.html#work" class="cs-back">
+  <a href="index.html#work" class="cs-back">
     <div>
       <div class="cs-back-label">Back to</div>
       <div class="cs-back-name">All Case Studies</div>
@@ -426,13 +426,17 @@ document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 document.querySelectorAll('a[href]').forEach(link=>{
   link.addEventListener('click',function(e){
     const h=this.getAttribute('href');
-    if(h&&!h.startsWith('#')&&!h.startsWith('mailto')){
+    if(h&&!h.startsWith('#')&&!h.startsWith('mailto')&&!h.startsWith('http')){
       e.preventDefault();
       document.body.style.transition='opacity .3s';
       document.body.style.opacity='0';
       setTimeout(()=>window.location.href=h,320);
     }
   });
+});
+// Fix black screen on back button
+window.addEventListener('pageshow', function(e){
+  document.body.style.opacity='1';
 });
 </script>
 </body>

@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Journal - Meet Bhatt</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<title>Journal — Meet Bhatt</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#f2ede4;--ink:#181714;--moss:#3d5a3e;--mid:#6b6560;--faint:#d4cfc6;--grid:rgba(0,0,0,0.055);--mono:'Space Mono',monospace;--sans:'Space Grotesk',sans-serif;}
+:root{--paper:#f2ede4;--ink:#181714;--moss:#3d5a3e;--mid:#6b6560;--faint:#d4cfc6;--mono:'Space Mono',monospace;--sans:'Space Grotesk',sans-serif;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;color:var(--ink);font-family:var(--sans);overflow-x:hidden;cursor:crosshair;opacity:0;transition:opacity .4s;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x:hidden;opacity:0;transition:opacity .4s;}
 body.ready{opacity:1;}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;border-bottom:1px solid var(--faint);background:rgba(242,237,228,0.94);backdrop-filter:blur(10px);}
@@ -20,7 +20,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-links a:hover,.nav-links a.active{color:var(--ink);}
 .nav-back{font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
 .nav-back:hover{color:var(--ink);}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:crosshair;padding:4px;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
 .hamburger span{display:block;width:20px;height:1px;background:var(--ink);transition:all .25s;}
 .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
 .hamburger.open span:nth-child(2){opacity:0;}
@@ -31,111 +31,64 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .mmenu a:last-child{border-bottom:none;}
 .mmenu a:hover{color:var(--ink);}
 
-/* HERO */
 #hero{padding:7rem 2rem 3rem;border-bottom:2px solid var(--ink);}
 .log-id{font-family:var(--mono);font-size:.62rem;color:var(--mid);letter-spacing:.1em;margin-bottom:1.5rem;}
 .page-title{font-family:var(--sans);font-weight:700;font-size:clamp(4rem,12vw,11rem);line-height:.88;letter-spacing:-.03em;margin-bottom:1rem;}
 .page-title span{color:var(--moss);}
-.page-sub{font-family:var(--mono);font-size:.68rem;color:var(--mid);letter-spacing:.08em;border-top:1px solid var(--faint);padding-top:1rem;display:flex;justify-content:space-between;}
+.page-sub{font-family:var(--mono);font-size:.68rem;color:var(--mid);letter-spacing:.08em;border-top:1px solid var(--faint);padding-top:1rem;}
 
-/* SECTION LABEL */
-.section-bar{display:flex;align-items:baseline;gap:1.5rem;padding:.8rem 2rem;border-bottom:1px solid var(--faint);background:var(--paper);}
+.section-bar{display:flex;align-items:baseline;gap:1.5rem;padding:.8rem 2rem;border-bottom:1px solid var(--faint);}
 .sb-num{font-family:var(--mono);font-size:.58rem;color:var(--mid);letter-spacing:.1em;}
 .sb-title{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);font-weight:700;}
 .sb-date{margin-left:auto;font-family:var(--mono);font-size:.55rem;color:var(--mid);}
 
-/* PHOTO MASONRY GRID */
-.photo-section{border-bottom:1px solid var(--faint);}
-.photo-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--faint);
-}
-.photo-grid.wide{grid-template-columns:2fr 1fr;}
-.photo-grid.portrait{grid-template-columns:1fr 1fr 1fr;}
-
-.photo-slot{
-  position:relative;overflow:hidden;
-  background:var(--paper);
-  cursor:crosshair;
-}
-.photo-slot.tall{aspect-ratio:3/4;}
-.photo-slot.wide{aspect-ratio:16/9;}
-.photo-slot.square{aspect-ratio:1/1;}
-.photo-slot.natural{aspect-ratio:4/3;}
-
-.photo-slot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease,filter .3s;}
-.photo-slot:hover img{transform:scale(1.04);}
-
-/* placeholder */
-.photo-ph{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;
-  background:var(--faint);
-}
-.photo-ph-dot{width:24px;height:24px;border:1px solid var(--mid);border-radius:50%;opacity:.3;}
-.photo-ph-label{font-family:var(--mono);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);opacity:.4;}
-
-/* caption on hover */
-.photo-caption{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:.5rem .8rem;
-  background:linear-gradient(transparent,rgba(24,23,20,.75));
-  font-family:var(--mono);font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;
-  color:rgba(255,255,255,.8);
-  opacity:0;transform:translateY(4px);
-  transition:opacity .3s,transform .3s;
-}
-.photo-slot:hover .photo-caption{opacity:1;transform:none;}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--faint);border-bottom:1px solid var(--faint);}
+.photo-slot{aspect-ratio:4/3;overflow:hidden;background:var(--paper);position:relative;}
+.photo-slot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
+.photo-slot:hover img{transform:scale(1.03);}
+.photo-caption{position:absolute;bottom:0;left:0;right:0;padding:.5rem .8rem;background:linear-gradient(transparent,rgba(24,23,20,.65));font-family:var(--mono);font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);opacity:0;transition:opacity .3s;}
+.photo-slot:hover .photo-caption{opacity:1;}
 
 footer{padding:1.2rem 2rem;display:flex;justify-content:space-between;border-top:1px solid var(--faint);}
 footer p{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);}
 
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s;}
-.reveal.visible{opacity:1;transform:none;}
-
 @media(max-width:860px){
   nav{padding:.9rem 1.2rem;}
   .nav-links,.nav-back{display:none;}
-  .hamburger{display:flex;cursor:pointer;}
+  .hamburger{display:flex;}
   #hero{padding:6.5rem 1.2rem 2.5rem;}
-  .page-sub{flex-direction:column;gap:.4rem;}
-  .photo-grid,.photo-grid.wide,.photo-grid.portrait{grid-template-columns:repeat(2,1fr);}
+  .section-bar{padding:.8rem 1.2rem;}
+  .photo-grid{grid-template-columns:repeat(2,1fr);}
   footer{flex-direction:column;gap:.3rem;text-align:center;padding:1rem 1.2rem;}
-  body{cursor:auto;}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="portfolio-1.html" class="nav-logo">MB</a>
+  <a href="index.html" class="nav-logo">MB</a>
   <ul class="nav-links">
-    <li><a href="portfolio-1.html#work">Work</a></li>
-    <li><a href="portfolio-1.html#about">About</a></li>
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="index.html#about-anchor">About</a></li>
     <li><a href="fieldnotes.html">Field Notes</a></li>
     <li><a href="journal.html" class="active">Journal</a></li>
-    <li><a href="portfolio-1.html#contact">Contact</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
   </ul>
-  <a href="portfolio-1.html" class="nav-back">← Portfolio</a>
+  <a href="index.html" class="nav-back">← Portfolio</a>
   <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
 </nav>
 <div class="mmenu" id="mob">
-  <a href="portfolio-1.html#work">Work</a>
-  <a href="portfolio-1.html#about">About</a>
+  <a href="index.html#work">Work</a>
+  <a href="index.html#about-anchor">About</a>
   <a href="fieldnotes.html">Field Notes</a>
   <a href="journal.html">Journal</a>
-  <a href="portfolio-1.html#contact">Contact</a>
+  <a href="index.html#contact">Contact</a>
 </div>
 
 <section id="hero">
   <div class="log-id">FIELD JOURNAL / BIRDS & WILDLIFE / INDIA</div>
   <h1 class="page-title">FIELD<br><span>JOURNAL</span></h1>
-  <div class="page-sub">
-    <span>Birds & Wildlife across India</span>
-    <span>Drop your photos - name them as shown below</span>
-  </div>
+  <div class="page-sub">Birds & Wildlife across India</div>
 </section>
 
 <!-- Gujarat Raptor Survey -->
@@ -143,14 +96,14 @@ footer p{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-trans
   <span class="sb-num">01</span>
   <span class="sb-title">Gujarat Raptor Survey</span>
   <span class="sb-date">Jan 2026 · Thol · LRK · Vansda · Shoolpaneshwar</span>
-</div></div>
-    </div></div>
-    </div></div>
-    </div></div>
-    </div></div>
-    </div></div>
-    </div>
-  </div>
+</div>
+<div class="photo-grid">
+  <div class="photo-slot"><img src="j-grs-01.jpg" alt=""><div class="photo-caption">Thol Bird Sanctuary</div></div>
+  <div class="photo-slot"><img src="j-grs-02.jpg" alt=""><div class="photo-caption">LRK Survey</div></div>
+  <div class="photo-slot"><img src="j-grs-03.jpg" alt=""><div class="photo-caption">Raptor in flight</div></div>
+  <div class="photo-slot"><img src="j-grs-04.jpg" alt=""><div class="photo-caption">Vansda National Park</div></div>
+  <div class="photo-slot"><img src="j-grs-05.jpg" alt=""><div class="photo-caption">Shoolpaneshwar</div></div>
+  <div class="photo-slot"><img src="j-grs-06.jpg" alt=""><div class="photo-caption">Rampara</div></div>
 </div>
 
 <!-- Campus Birds -->
@@ -158,24 +111,29 @@ footer p{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-trans
   <span class="sb-num">02</span>
   <span class="sb-title">Campus Birds · Ahmedabad University</span>
   <span class="sb-date">2024-25 · 73 species</span>
-</div></div>
-    </div></div>
-    </div></div>
-    </div></div>
-    </div></div>
-    </div></div>
-    </div>
-  </div>
+</div>
+<div class="photo-grid">
+  <div class="photo-slot"><img src="j-au-01.jpg" alt=""><div class="photo-caption">Common Myna</div></div>
+  <div class="photo-slot"><img src="j-au-02.jpg" alt=""><div class="photo-caption">Purple Sunbird</div></div>
+  <div class="photo-slot"><img src="j-au-03.jpg" alt=""><div class="photo-caption">Campus pond</div></div>
+  <div class="photo-slot"><img src="j-au-04.jpg" alt=""><div class="photo-caption">Indian Roller</div></div>
+  <div class="photo-slot"><img src="j-au-05.jpg" alt=""><div class="photo-caption">White-throated Kingfisher</div></div>
+  <div class="photo-slot"><img src="j-au-06.jpg" alt=""><div class="photo-caption">Coppersmith Barbet</div></div>
 </div>
 
-<!-- Placeholder for next trip -->
+<!-- Next trip -->
 <div class="section-bar">
   <span class="sb-num">03</span>
-  <span class="sb-title">Add your next trip</span>
+  <span class="sb-title">Next Trip</span>
   <span class="sb-date">Upcoming</span>
 </div>
-<div class="photo-section" style="opacity:.25;pointer-events:none;"></div></div></div></div></div></div>
-  </div>
+<div class="photo-grid" style="opacity:.2;">
+  <div class="photo-slot"></div>
+  <div class="photo-slot"></div>
+  <div class="photo-slot"></div>
+  <div class="photo-slot"></div>
+  <div class="photo-slot"></div>
+  <div class="photo-slot"></div>
 </div>
 
 <footer>
@@ -189,19 +147,7 @@ const ham=document.getElementById('ham');
 const mob=document.getElementById('mob');
 ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');});
 mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open');}));
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.04});
-document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
-document.querySelectorAll('a[href]').forEach(link=>{
-  link.addEventListener('click',function(e){
-    const h=this.getAttribute('href');
-    if(h&&!h.startsWith('#')&&!h.startsWith('mailto')){
-      e.preventDefault();
-      document.body.style.transition='opacity .3s';
-      document.body.style.opacity='0';
-      setTimeout(()=>window.location.href=h,320);
-    }
-  });
-});
+window.addEventListener('pageshow',()=>document.body.style.opacity='1');
 </script>
 </body>
 </html>
