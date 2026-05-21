@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EKON - Case Study · Meet Bhatt</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f2ede4;--ink:#181714;--moss:#3d5a3e;--mid:#6b6560;--faint:#d4cfc6;
+  --mono:'Space Mono',monospace;--sans:'Space Grotesk',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;overflow-x:hidden;opacity:0;transition:opacity .4s;}
+body.ready{opacity:1;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;border-bottom:1px solid var(--faint);background:rgba(242,237,228,0.95);backdrop-filter:blur(10px);}
+.nav-logo{width:32px;height:32px;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.6rem;font-weight:700;color:var(--ink);text-decoration:none;transition:background .2s,color .2s;}
+.nav-logo:hover{background:var(--ink);color:var(--paper);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-back{font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--ink);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;}
+.hamburger span{display:block;width:20px;height:1px;background:var(--ink);transition:all .25s;}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mmenu{display:none;position:fixed;top:57px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--faint);padding:1rem 2.5rem;z-index:490;flex-direction:column;}
+.mmenu.open{display:flex;}
+.mmenu a{font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;padding:.8rem 0;border-bottom:1px solid var(--faint);transition:color .2s;}
+.mmenu a:last-child{border-bottom:none;}
+
+/* HERO */
+.cs-hero{padding:7rem 2.5rem 4rem;border-bottom:2px solid var(--ink);max-width:1200px;margin:0 auto;}
+.cs-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:1.5rem;}
+.cs-title{font-family:var(--sans);font-weight:700;font-size:clamp(3.5rem,9vw,9rem);letter-spacing:-.03em;line-height:.9;margin-bottom:1.5rem;}
+.cs-title span{color:var(--moss);}
+.cs-subtitle{font-family:var(--mono);font-size:.85rem;color:var(--mid);letter-spacing:.06em;margin-bottom:2.5rem;}
+.cs-overview{font-size:1.15rem;line-height:1.8;color:var(--mid);max-width:720px;border-left:3px solid var(--moss);padding-left:1.5rem;}
+.cs-overview strong{color:var(--ink);font-weight:500;}
+
+/* META */
+.cs-meta{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--faint);}
+.cm{padding:1.5rem 2.5rem;border-right:1px solid var(--faint);}
+.cm:last-child{border-right:none;}
+.cm-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;}
+.cm-val{font-size:.88rem;color:var(--ink);line-height:1.5;}
+
+/* COVER */
+.cs-cover{border-bottom:1px solid var(--faint);background:var(--faint);padding:2.5rem;}
+.cs-cover img{width:100%;max-width:1100px;height:auto;display:block;margin:0 auto;border:1px solid var(--faint);}
+.cs-cover-ph{max-width:1100px;margin:0 auto;background:var(--paper);border:1px solid var(--faint);padding:5rem;display:flex;align-items:center;justify-content:center;}
+.cs-cover-ph span{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);opacity:.5;}
+
+/* SECTION WRAPPER */
+.cs-section{max-width:1200px;margin:0 auto;padding:4rem 2.5rem;border-bottom:1px solid var(--faint);}
+.cs-section:last-of-type{border-bottom:none;}
+
+/* Section header */
+.cs-section-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--moss);margin-bottom:.8rem;}
+.cs-section-num{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--faint);margin-right:.8rem;}
+.cs-section-title{font-family:var(--sans);font-weight:700;font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:-.03em;line-height:.95;margin-bottom:2rem;color:var(--ink);}
+
+/* Body text */
+.cs-body{font-size:.97rem;line-height:1.9;color:var(--mid);max-width:720px;}
+.cs-body p+p{margin-top:1.2rem;}
+.cs-body strong{color:var(--ink);font-weight:500;}
+.cs-body ul{margin-top:1rem;margin-left:1.2rem;}
+.cs-body ul li{margin-bottom:.5rem;}
+
+/* Two col layout */
+.cs-2col{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem;}
+.cs-2col-item{}
+.cs-2col-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--moss);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--faint);}
+.cs-2col-body{font-size:.9rem;line-height:1.85;color:var(--mid);}
+
+/* Stat row */
+.cs-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2.5rem;border:1px solid var(--faint);}
+.cs-stat{padding:1.5rem 2rem;border-right:1px solid var(--faint);}
+.cs-stat:last-child{border-right:none;}
+.cs-stat-num{font-family:var(--sans);font-weight:700;font-size:2.5rem;letter-spacing:-.03em;color:var(--ink);line-height:1;margin-bottom:.3rem;}
+.cs-stat-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);}
+
+/* Insight cards */
+.cs-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:2rem;border:1px solid var(--faint);}
+.cs-insight{padding:1.8rem;border-right:1px solid var(--faint);}
+.cs-insight:last-child{border-right:none;}
+.cs-insight-tag{font-family:var(--mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--moss);margin-bottom:.7rem;}
+.cs-insight-text{font-size:.88rem;line-height:1.75;color:var(--mid);}
+.cs-insight-text strong{color:var(--ink);font-weight:500;}
+
+/* HMW */
+.cs-hmw{background:var(--ink);color:var(--paper);padding:2.5rem;margin-top:2rem;}
+.cs-hmw-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--moss);margin-bottom:1rem;}
+.cs-hmw-text{font-family:var(--sans);font-weight:700;font-size:clamp(1.3rem,3vw,2rem);line-height:1.2;letter-spacing:-.01em;}
+
+/* Pipeline */
+.cs-pipeline{display:grid;grid-template-columns:repeat(4,1fr);margin-top:2rem;border:1px solid var(--faint);}
+.cs-pipe{padding:1.8rem;border-right:1px solid var(--faint);position:relative;}
+.cs-pipe:last-child{border-right:none;}
+.cs-pipe-step{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:var(--mid);margin-bottom:.6rem;}
+.cs-pipe-name{font-family:var(--sans);font-weight:700;font-size:1.2rem;color:var(--ink);margin-bottom:.4rem;}
+.cs-pipe-role{font-size:.82rem;color:var(--mid);line-height:1.6;}
+.cs-pipe-arrow{position:absolute;top:50%;right:-10px;transform:translateY(-50%);font-size:.7rem;color:var(--faint);z-index:1;}
+
+/* Mode cards */
+.cs-mode-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2.5rem;border:1px solid var(--faint);}
+.cs-mode{padding:2rem 1.8rem;border-right:1px solid var(--faint);display:flex;flex-direction:column;gap:.5rem;}
+.cs-mode:last-child{border-right:none;}
+.cs-mode-num{font-family:var(--mono);font-size:.58rem;color:var(--mid);letter-spacing:.1em;}
+.cs-mode-name{font-family:var(--sans);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;color:var(--ink);line-height:1;margin-top:.3rem;}
+.cs-mode-user{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;color:var(--moss);margin-bottom:.5rem;}
+.cs-mode-desc{font-size:.83rem;line-height:1.7;color:var(--mid);flex:1;}
+.cs-mode-tag{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);border-top:1px solid var(--faint);padding-top:.8rem;margin-top:auto;}
+
+/* Design principles */
+.cs-design-principles{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2.5rem;border:1px solid var(--faint);}
+.cs-dp-item{padding:1.8rem;border-right:1px solid var(--faint);}
+.cs-dp-item:last-child{border-right:none;}
+.cs-dp-num{font-family:var(--mono);font-size:.56rem;color:var(--mid);letter-spacing:.1em;margin-bottom:.6rem;}
+.cs-dp-title{font-family:var(--sans);font-weight:700;font-size:1rem;letter-spacing:-.01em;color:var(--ink);margin-bottom:.7rem;line-height:1.2;}
+.cs-dp-body{font-size:.82rem;line-height:1.75;color:var(--mid);}
+
+/* Prototype link */
+.cs-proto-link{display:flex;align-items:center;gap:1.5rem;margin-top:2rem;padding:1.5rem 2rem;border:1px solid var(--faint);background:var(--paper);}
+.cs-proto-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);}
+.cs-proto-btn{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:.6rem 1.2rem;text-decoration:none;transition:background .2s;white-space:nowrap;}
+.cs-proto-btn:hover{background:var(--moss);}
+.cs-proto-note{font-family:var(--mono);font-size:.52rem;color:var(--faint);letter-spacing:.06em;}
+.cs-outcome-imgs{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:2rem;background:var(--faint);}
+.cs-oimg{background:var(--faint);display:flex;align-items:center;justify-content:center;padding:3rem 2rem;}
+.cs-oimg img{width:100%;max-width:280px;height:auto;display:block;drop-shadow:0 8px 32px rgba(0,0,0,.15);}
+
+/* Learnings */
+.cs-learnings{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:2rem;border:1px solid var(--faint);}
+.cs-learning{padding:1.8rem;border-right:1px solid var(--faint);}
+.cs-learning:last-child{border-right:none;}
+.cs-learning-num{font-family:var(--mono);font-size:.58rem;color:var(--mid);margin-bottom:.5rem;}
+.cs-learning-text{font-size:.88rem;line-height:1.75;color:var(--mid);}
+.cs-learning-text strong{color:var(--ink);font-weight:500;}
+
+/* Back */
+.cs-back-wrap{border-top:2px solid var(--ink);}
+.cs-back{display:flex;justify-content:space-between;align-items:center;padding:2.5rem 2.5rem;text-decoration:none;color:inherit;max-width:1200px;margin:0 auto;transition:opacity .2s;}
+.cs-back:hover{opacity:.6;}
+.cs-back-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);margin-bottom:.4rem;}
+.cs-back-name{font-family:var(--sans);font-weight:700;font-size:clamp(1.2rem,3vw,2.5rem);letter-spacing:-.02em;}
+.cs-back-arrow{font-size:1.5rem;color:var(--mid);}
+
+footer{padding:1.2rem 2.5rem;display:flex;justify-content:space-between;border-top:1px solid var(--faint);}
+footer p{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .65s,transform .65s;}
+.reveal.visible{opacity:1;transform:none;}
+
+@media(max-width:860px){
+  nav{padding:.9rem 1.2rem;}
+  .nav-links,.nav-back{display:none;}
+  .hamburger{display:flex;}
+  .cs-hero{padding:6rem 1.2rem 3rem;}
+  .cs-cover{padding:1rem;}
+  .cs-meta{grid-template-columns:1fr 1fr;}
+  .cm{padding:1.2rem;}
+  .cm:nth-child(2){border-right:none;}
+  .cm:nth-child(3),.cm:nth-child(4),.cm:nth-child(5){border-top:1px solid var(--faint);}
+  .cm:nth-child(4){border-right:none;}
+  .cs-section{padding:3rem 1.2rem;}
+  .cs-2col{grid-template-columns:1fr;}
+  .cs-stats{grid-template-columns:1fr 1fr;}
+  .cs-insights{grid-template-columns:1fr;}
+  .cs-insight{border-right:none;border-bottom:1px solid var(--faint);}
+  .cs-mode-grid{grid-template-columns:1fr 1fr;}
+  .cs-mode{border-bottom:1px solid var(--faint);}
+  .cs-mode:nth-child(2n){border-right:none;}
+  .cs-design-principles{grid-template-columns:1fr 1fr;}
+  .cs-dp-item{border-bottom:1px solid var(--faint);}
+  .cs-dp-item:nth-child(2n){border-right:none;}
+  .cs-pipeline{grid-template-columns:1fr 1fr;}
+  .cs-proto-link{flex-direction:column;align-items:flex-start;gap:1rem;}
+  .cs-pipe-arrow{display:none;}
+  .cs-outcome-imgs{grid-template-columns:1fr;}
+  .cs-learnings{grid-template-columns:1fr;}
+  .cs-learning{border-right:none;border-bottom:1px solid var(--faint);}
+  .cs-back{padding:2rem 1.2rem;}
+  footer{flex-direction:column;gap:.3rem;text-align:center;padding:1rem 1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="portfolio-1.html" class="nav-logo">MB</a>
+  <ul class="nav-links">
+    <li><a href="portfolio-1.html#work">Work</a></li>
+    <li><a href="portfolio-1.html#about-anchor">About</a></li>
+    <li><a href="fieldnotes.html">Field Notes</a></li>
+    <li><a href="journal.html">Journal</a></li>
+    <li><a href="portfolio-1.html#contact">Contact</a></li>
+  </ul>
+  <a href="portfolio-1.html" class="nav-back">- Back</a>
+  <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mmenu" id="mob">
+  <a href="portfolio-1.html#work">Work</a>
+  <a href="portfolio-1.html#about-anchor">About</a>
+  <a href="fieldnotes.html">Field Notes</a>
+  <a href="journal.html">Journal</a>
+  <a href="portfolio-1.html#contact">Contact</a>
+</div>
+
+<!-- ── HERO ── -->
+<div class="cs-hero reveal">
+  <div class="cs-label">Case Study · 01 / 2026</div>
+  <h1 class="cs-title">EK<span>ON.</span></h1>
+  <div class="cs-subtitle">एक-ON · Individual Bird Identification Platform · Mobile · ML Design</div>
+  <p class="cs-overview">
+    Most birding apps tell you <strong>what</strong> species you saw. EKON tells you <strong>which individual bird</strong> — a non-invasive, ML-powered mobile platform that gives every Common Myna a unique digital identity, tracked across time and location.
+  </p>
+</div>
+
+<!-- ── META ── -->
+<div class="cs-meta">
+  <div class="cm"><div class="cm-label">Role</div><div class="cm-val">Sole UX/UI Designer</div></div>
+  <div class="cm"><div class="cm-label">Type</div><div class="cm-val">Capstone Thesis</div></div>
+  <div class="cm"><div class="cm-label">Timeline</div><div class="cm-val">Jan - May 2026</div></div>
+  <div class="cm"><div class="cm-label">Tools</div><div class="cm-val">Figma · FigJam · Miro</div></div>
+  <div class="cm"><div class="cm-label">Mentor</div><div class="cm-val">Prof. Prayas Abhinav</div></div>
+</div>
+
+<!-- ── COVER ── -->
+<div class="cs-cover">
+  <img src="cover.png" alt="EKON Cover">
+  <div class="cs-cover-ph" style="display:none;"><span>Drop cover.png in the same folder</span></div>
+</div>
+
+<!-- ── 01 OVERVIEW ── -->
+<div class="cs-section reveal">
+  <div class="cs-section-label"><span class="cs-section-num">01</span>Project Overview</div>
+  <h2 class="cs-section-title">What is EKON?</h2>
+  <div class="cs-body">
+    <p>EKON (एक-ON, meaning "one" in Hindi) is a mobile application that uses a multi-model ML pipeline to identify individual birds — not just species — through photographs. The pilot species is the <strong>Common Myna</strong>, one of India's most widespread urban birds.</p>
+    <p>The project was designed as my B.Des capstone thesis at Anant National University, sitting at the intersection of conservation technology, citizen science, and human-centred design.</p>
+  </div>
+  <div class="cs-2col" style="margin-top:2.5rem;">
+    <div class="cs-2col-item">
+      <div class="cs-2col-label">The Gap</div>
+      <div class="cs-2col-body">Existing tools (eBird, Merlin, iNaturalist) identify species but cannot track individual birds across sightings — critical data for understanding territory, migration, and population health.</div>
+    </div>
+    <div class="cs-2col-item">
+      <div class="cs-2col-label">The Opportunity</div>
+      <div class="cs-2col-body">Build a non-invasive alternative to physical tagging and ringing that is accessible to both citizen scientists and professional researchers — at zero cost per bird.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 02 PROBLEM ── -->
+<div class="cs-section reveal">
+  <div class="cs-section-label"><span class="cs-section-num">02</span>Problem Statement</div>
+  <h2 class="cs-section-title">We count birds. We don't know them.</h2>
+  <div class="cs-body">
+    <p>Traditional individual identification methods — leg rings, wing tags, GPS transmitters — cost <strong>Rs. 4-5 lakhs per bird</strong>, require handling, and are impossible to deploy at scale with volunteer networks.</p>
+    <p>Meanwhile, millions of citizen science observations are collected every year with zero capacity to answer the most ecologically meaningful question: <strong>is this the same bird I saw last week?</strong></p>
+  </div>
+  <div class="cs-hmw">
+    <div class="cs-hmw-label">How Might We</div>
+    <div class="cs-hmw-text">"How might we enable citizen scientists and researchers to identify individual birds non-invasively, using only a photograph taken with a smartphone?"</div>
+  </div>
+</div>
+
+<!-- ── 03 RESEARCH ── -->
+<div class="cs-section reveal">
+  <div class="cs-section-label"><span class="cs-section-num">03</span>Research</div>
+  <h2 class="cs-section-title">Understanding the users and the field.</h2>
+  <div class="cs-body">
+    <p>I conducted <strong>12 semi-structured interviews</strong> across three user groups: casual birders, active citizen scientists, and professional field researchers. I also reviewed 30+ academic papers on bird biometrics, wildlife tracking, and ML-based individual recognition.</p>
+  </div>
+  <div class="cs-stats">
+    <div class="cs-stat"><div class="cs-stat-num">12</div><div class="cs-stat-label">User Interviews</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">30+</div><div class="cs-stat-label">Papers Reviewed</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">4</div><div class="cs-stat-label">User Personas</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">5</div><div class="cs-stat-label">Apps Audited</div></div>
+  </div>
+  <div class="cs-insights" style="margin-top:2.5rem;">
+    <div class="cs-insight">
+      <div class="cs-insight-tag">Insight 01 · Trust</div>
+      <div class="cs-insight-text">Users want to understand <strong>why</strong> two photos are matched. A black-box result felt untrustworthy — especially for researchers who need to cite data.</div>
+    </div>
+    <div class="cs-insight">
+      <div class="cs-insight-tag">Insight 02 · Non-invasive</div>
+      <div class="cs-insight-text">Every participant — including those who currently use physical tags — said they would prefer a <strong>non-invasive method</strong> if it were equally reliable.</div>
+    </div>
+    <div class="cs-insight">
+      <div class="cs-insight-tag">Insight 03 · Scope</div>
+      <div class="cs-insight-text">Attempting many species at once reduces reliability. <strong>One species done well</strong> was preferred over five done poorly. Common Myna was the unanimous pilot choice.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 04 DEFINE ── -->
+<div class="cs-section reveal">
+  <div class="cs-section-label"><span class="cs-section-num">04</span>Define</div>
+  <h2 class="cs-section-title">Four users. Four modes. One app.</h2>
+  <div class="cs-body">
+    <p>Research revealed four meaningfully different user types with different goals, contexts, and expectations. Rather than one generic flow, I designed <strong>four modes within a single app</strong> — each with its own information architecture and interaction patterns.</p>
+  </div>
+  <div class="cs-mode-grid">
+    <div class="cs-mode">
+      <div class="cs-mode-num">01</div>
+      <div class="cs-mode-name">Casual</div>
+      <div class="cs-mode-user">Weekend birder</div>
+      <div class="cs-mode-desc">Discovery-first. Gamified streaks, daily sighting goals, and a visual collection of identified individuals.</div>
+      <div class="cs-mode-tag">Gamified log · Streak tracking</div>
+    </div>
+    <div class="cs-mode">
+      <div class="cs-mode-num">02</div>
+      <div class="cs-mode-name">Researcher</div>
+      <div class="cs-mode-user">Field ornithologist</div>
+      <div class="cs-mode-desc">Data-first. Every sighting exportable in Darwin Core format with full confidence metadata.</div>
+      <div class="cs-mode-tag">Darwin Core export · Batch upload</div>
+    </div>
+    <div class="cs-mode">
+      <div class="cs-mode-num">03</div>
+      <div class="cs-mode-name">Photographer</div>
+      <div class="cs-mode-user">Wildlife photographer</div>
+      <div class="cs-mode-desc">Attribution-first. Individual ID auto-tagged in EXIF data for portfolio and publication credit.</div>
+      <div class="cs-mode-tag">EXIF tagging · Individual credit</div>
+    </div>
+    <div class="cs-mode">
+      <div class="cs-mode-num">04</div>
+      <div class="cs-mode-name">Community</div>
+      <div class="cs-mode-user">Rural / regional user</div>
+      <div class="cs-mode-desc">Access-first. Full Gujarati UI, offline-first sync, designed for low-bandwidth environments.</div>
+      <div class="cs-mode-tag">Gujarati UI · Offline-first</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 05 SOLUTION ── -->
+<div class="cs-section reveal">
+  <div class="cs-section-label"><span class="cs-section-num">05</span>Solution</div>
+  <h2 class="cs-section-title">A four-stage ML pipeline, not a single model.</h2>
+  <div class="cs-body">
+    <p>Individual recognition is not one problem. It requires species confirmation, feature detection, fingerprint extraction, and identity matching — each a separate model optimised for its task.</p>
+  </div>
+  <div class="cs-pipeline">
+    <div class="cs-pipe">
+      <div class="cs-pipe-step">Stage 01</div>
+      <div class="cs-pipe-name">BirdNET</div>
+      <div class="cs-pipe-role">Species confirmation. Rejects non-Myna photos before processing begins.</div>
+      <div class="cs-pipe-arrow">-></div>
+    </div>
+    <div class="cs-pipe">
+      <div class="cs-pipe-step">Stage 02</div>
+      <div class="cs-pipe-name">YOLO v10</div>
+      <div class="cs-pipe-role">Feature detection. Locates eye, beak, legs, and plumage patches.</div>
+      <div class="cs-pipe-arrow">-></div>
+    </div>
+    <div class="cs-pipe">
+      <div class="cs-pipe-step">Stage 03</div>
+      <div class="cs-pipe-name">ResNet-50</div>
+      <div class="cs-pipe-role">Feature embedding. Extracts a unique 128-dimension fingerprint vector.</div>
+      <div class="cs-pipe-arrow">-></div>
+    </div>
+    <div class="cs-pipe">
+      <div class="cs-pipe-step">Stage 04</div>
+      <div class="cs-pipe-name">FAISS</div>
+      <div class="cs-pipe-role">Identity matching. Matches against database or assigns new ID.</div>
+    </div>
+  </div>
+  <div class="cs-body" style="margin-top:2rem;">
+    <p><strong>Confidence threshold design:</strong> matches above 80% auto-save. Below 80%, the app surfaces which features were used (eye weight 40%, plumage 35%, legs 20%, beak 5%) and asks the user to confirm — building trust through transparency.</p>
+  </div>
+</div>
+
+<!-- ── 06 DESIGN ── -->
+<div class="cs-section reveal">
+  <div class="cs-section-label"><span class="cs-section-num">06</span>Design</div>
+  <h2 class="cs-section-title">Designing for trust, not just usability.</h2>
+  <div class="cs-body">
+    <p>The core design challenge wasn't the UI — it was <strong>making ML decisions feel trustworthy</strong>. Every match shows the user which features were used and with what weight. The system acts first; the user corrects only when needed.</p>
+  </div>
+  <div class="cs-proto-link">
+    <div class="cs-proto-label">View the prototype</div>
+    <a href="https://www.figma.com/proto/eQA62FHgO4LIdNJ4FXy5Tn/EKON---Final?page-id=0%3A1&node-id=1-49&p=f&viewport=268%2C379%2C0.06&t=TirG4WOZgphZrF1p-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=46%3A7685" target="_blank" class="cs-proto-btn">Open in Figma ↗</a>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:2rem;">
+    <div style="aspect-ratio:16/9;overflow:hidden;background:var(--faint);">
+      <img src="outcome-01.png" alt="EKON Screen 1" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+    <div style="aspect-ratio:16/9;overflow:hidden;background:var(--faint);">
+      <img src="outcome-02.png" alt="EKON Screen 2" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+  </div>
+  <div class="cs-design-principles">
+    <div class="cs-dp-item">
+      <div class="cs-dp-num">01</div>
+      <div class="cs-dp-title">ML-first, human-corrected</div>
+      <div class="cs-dp-body">The system assigns identities automatically. Users only intervene when confidence drops below 80% — reducing cognitive load while maintaining accuracy.</div>
+    </div>
+    <div class="cs-dp-item">
+      <div class="cs-dp-num">02</div>
+      <div class="cs-dp-title">Transparent reasoning</div>
+      <div class="cs-dp-body">Every match surfaces the features used and their weights — eye, plumage, legs, beak. Users see the model's logic, not just its conclusion.</div>
+    </div>
+    <div class="cs-dp-item">
+      <div class="cs-dp-num">03</div>
+      <div class="cs-dp-title">Progressive disclosure</div>
+      <div class="cs-dp-body">Casual users see a clean, simple interface. Researchers unlock detailed metadata, export tools, and batch workflows — same app, different depth.</div>
+    </div>
+    <div class="cs-dp-item">
+      <div class="cs-dp-num">04</div>
+      <div class="cs-dp-title">Designed for every state</div>
+      <div class="cs-dp-body">Empty collection, low-quality rejection, species mismatch, offline sync, batch upload — every edge case has an intentional, non-blocking resolution.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 07 OUTCOME ── -->
+<div class="cs-section reveal">
+  <div class="cs-section-label"><span class="cs-section-num">07</span>Outcome & Learnings</div>
+  <h2 class="cs-section-title">What this project delivered.</h2>
+  <div class="cs-body">
+    <p>Submitted as B.Des capstone thesis, May 2026. Mentored by Prof. Prayas Abhinav, Anant National University.</p>
+  </div>
+  <div class="cs-stats" style="margin-top:2rem;">
+    <div class="cs-stat"><div class="cs-stat-num">56+</div><div class="cs-stat-label">Screens in Prototype</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">4</div><div class="cs-stat-label">User Modes</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">80%</div><div class="cs-stat-label">Confidence Threshold</div></div>
+    <div class="cs-stat"><div class="cs-stat-num">60+</div><div class="cs-stat-label">Page Thesis</div></div>
+  </div>
+  <div class="cs-learnings" style="margin-top:2.5rem;">
+    <div class="cs-learning">
+      <div class="cs-learning-num">01</div>
+      <div class="cs-learning-text"><strong>Designing for ML requires designing for uncertainty.</strong> Confidence scores and transparent reasoning are UX problems as much as technical ones.</div>
+    </div>
+    <div class="cs-learning">
+      <div class="cs-learning-num">02</div>
+      <div class="cs-learning-text"><strong>Scope constraints are design constraints.</strong> Choosing one species and doing it well produced a more coherent, testable, and trustworthy product than attempting broad coverage.</div>
+    </div>
+    <div class="cs-learning">
+      <div class="cs-learning-num">03</div>
+      <div class="cs-learning-text"><strong>Domain knowledge accelerates empathy.</strong> My fieldwork background meant I understood users' real frustrations — not just what they said in interviews.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BACK ── -->
+<div class="cs-back-wrap">
+  <a href="portfolio-1.html#work" class="cs-back">
+    <div>
+      <div class="cs-back-label">Back to</div>
+      <div class="cs-back-name">All Case Studies</div>
+    </div>
+    <span class="cs-back-arrow">-</span>
+  </a>
+</div>
+
+<footer>
+  <p>Meet Bhatt · Product Designer · Pune 2026</p>
+  <p>EKON Case Study · 2026</p>
+</footer>
+
+<script>
+document.body.classList.add('ready');
+const ham=document.getElementById('ham');
+const mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open');}));
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.05});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+document.querySelectorAll('a[href]').forEach(link=>{
+  link.addEventListener('click',function(e){
+    const h=this.getAttribute('href');
+    if(h&&!h.startsWith('#')&&!h.startsWith('mailto')){
+      e.preventDefault();
+      document.body.style.transition='opacity .3s';
+      document.body.style.opacity='0';
+      setTimeout(()=>window.location.href=h,320);
+    }
+  });
+});
+</script>
+</body>
+</html>
